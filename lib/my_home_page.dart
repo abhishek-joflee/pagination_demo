@@ -19,7 +19,7 @@ class _MyHomePageState extends State<MyHomePage> {
   // NUMBER OF PAGINATION CALLS
   int counter = 0;
 
-  // PAGINATION FUNCTION
+  //? PAGINATION FUNCTION
   Future<void> loadMore() async {
     // SET LOADING TRUE
     setState(() {
@@ -58,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   //! TO AVOID MULTIPLE CALLS
                   // CHECK IF ALREADY LOADING OR NOT
                   // AND
-                  // CHECK IF SCROLL POSITION IS AT THE END OR NOT
+                  // CHECK IF SCROLL POSITION IS AT THE END
                   if (!isLoading &&
                       scrollInfo.metrics.pixels ==
                           scrollInfo.metrics.maxScrollExtent) {
@@ -66,6 +66,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   }
                   return true;
                 },
+
+                // LIST VIEW
                 child: ListView.builder(
                   itemBuilder: (ctx, i) => ListTile(
                     title: Text(data[i].toString()),
@@ -74,6 +76,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
+
+            // LOADER
             SizedBox(
               height: isLoading ? 50.0 : 0.0,
               child: const Center(
