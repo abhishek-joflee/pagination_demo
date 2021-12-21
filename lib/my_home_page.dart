@@ -64,6 +64,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           scrollInfo.metrics.maxScrollExtent) {
                     loadMore();
                   }
+
+                  // returning true means, the notification HAS BEEN handled,
+                  // & it will stop bubbling up the tree
                   return true;
                 },
 
