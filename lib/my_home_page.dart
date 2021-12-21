@@ -10,18 +10,34 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  // LIST OF DATA ( [1, 2, 3,...,9 ,10] )
+  List<int> data = List.generate(10, (index) => index + 1);
+
   // LOADING STATE VARIABLE
   bool isLoading = false;
+
   // NUMBER OF PAGINATION CALLS
   int counter = 0;
 
   // PAGINATION FUNCTION
   Future<void> loadMore() async {
+    // SET LOADING TRUE
     setState(() {
       isLoading = true;
     });
+
+    // PRETENDING API CALL
     await Future.delayed(const Duration(seconds: 2));
+
+    // ADD DATA
+    for (var i = 0; i < 10; i++) {
+      data.add(data.last + 1);
+    }
+
+    // INCREMENT PAGINATION CALL
     counter += 1;
+
+    // SET LOADING FALSE
     setState(() {
       isLoading = false;
     });
@@ -41,16 +57,20 @@ class _MyHomePageState extends State<MyHomePage> {
                 onNotification: (ScrollNotification scrollInfo) {
                   //! TO AVOID MULTIPLE CALLS
                   // CHECK IF ALREADY LOADING OR NOT
-                  if (!isLoading) {
+                  // AND
+                  // CHECK IF SCROLL POSITION IS AT THE END OR NOT
+                  if (!isLoading &&
+                      scrollInfo.metrics.pixels ==
+                          scrollInfo.metrics.maxScrollExtent) {
                     loadMore();
                   }
                   return true;
                 },
                 child: ListView.builder(
                   itemBuilder: (ctx, i) => ListTile(
-                    title: Text(i.toString()),
+                    title: Text(data[i].toString()),
                   ),
-                  itemCount: 15,
+                  itemCount: data.length,
                 ),
               ),
             ),
